@@ -4,12 +4,15 @@
   "description": "USER MANAGEMENT SERVICE FOR OMFO MOMO",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./src/index.ts"
+    "dev": "node ./src/index.ts",
+    "format:check": "prettier . --check",
+    "format:fix": "prettier . --write"
   },
   "author": "Anshu Babu [ vilify.king@gmail.com ]",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.14.9",
+    "prettier": "3.3.2",
     "typescript": "^5.5.2"
   }
 }
