@@ -1,0 +1,11 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "description": "USER MANAGEMENT SERVICE FOR OMFO MOMO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anshu Babu [ vilify.king@gmail.com ]",
+  "license": "ISC"
+}
