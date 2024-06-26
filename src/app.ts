@@ -5,7 +5,7 @@ import { HttpError } from 'http-errors';
 const app = express();
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello King ABR');
+  res.status(200).send('Hello King ABR');
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
