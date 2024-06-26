@@ -18,11 +18,6 @@ export default tseslint.config({
     },
   },
   rules: {
-    '@typescript-eslint/no-unsafe-argument': 'off',
-    '@typescript-eslint/no-unsafe-assignment': 'error',
-    '@typescript-eslint/no-unsafe-call': 'error',
-    '@typescript-eslint/no-unsafe-member-access': 'error',
-    '@typescript-eslint/no-unsafe-return': 'error',
     'no-unused-vars': 'error',
     'no-console': 'off',
   },
