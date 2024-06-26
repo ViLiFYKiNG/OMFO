@@ -1,6 +1,4 @@
-function hello_king(_king: string): string {
+import { config } from 'dotenv';
+config();
 
-  return _king.toUpperCase();
-}
-
-hello_king('King ABR');
+console.log('HELLO KING', process.env.PORT);

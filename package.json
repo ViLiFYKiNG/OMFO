@@ -13,7 +13,6 @@
   },
   "author": "Anshu Babu [ vilify.king@gmail.com ]",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.5.0",
     "@types/eslint": "^8.56.10",
@@ -30,6 +29,9 @@
     "typescript-eslint": "^7.14.1"
   },
   "lint-staged": {
-    "*.ts": "npm run lint"
+    "*.ts": ["npm run format:fix", "npm run lint"]
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }
