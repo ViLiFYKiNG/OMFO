@@ -1,8 +1,6 @@
-function hello_king(king: string): boolean {
-  console.log(`Hello, ${king}!`);
-  console.log(`Hello, ${king}!`);
+function hello_king(_king: string): string {
 
-  return true;
+  return _king.toUpperCase();
 }
 
 hello_king('King ABR');
