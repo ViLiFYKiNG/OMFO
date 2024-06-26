@@ -9,7 +9,7 @@ export default tseslint.config({
     ...tseslint.configs.recommended,
     ...tseslint.configs.strict,
     ...tseslint.configs.stylistic,
-    {...eslintConfigPrettier },
+    { ...eslintConfigPrettier },
   ],
   languageOptions: {
     parser: tseslint.parser,
