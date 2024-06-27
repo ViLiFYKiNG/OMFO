@@ -1,24 +1,35 @@
 import { Repository } from 'typeorm';
 import { User } from '../entity/User';
 import { UserData } from '../types';
-import logger from '../config/logger';
+import createHttpError from 'http-errors';
+import { Logger } from 'winston';
+import { ROLES } from '../constants';
 
 export class UserService {
-  constructor(private userRepository: Repository<User>) {}
+  constructor(
+    private userRepository: Repository<User>,
+    private logger: Logger,
+  ) {}
   async create({
     firstName,
     lastName,
     email,
     password,
   }: UserData): Promise<UserData> {
-    const user = await this.userRepository.save({
-      firstName,
-      lastName,
-      email,
-      password,
-    });
+    try {
+      const user: UserData = await this.userRepository.save({
+        firstName,
+        lastName,
+        email,
+        password,
+        role: ROLES.CUSTOMER,
+      });
 
-    logger.info(user);
-    return user;
+      this.logger.info('....', user);
+      return user;
+    } catch (error) {
+      const errorCustom = createHttpError(500, 'Fail to create user');
+      throw errorCustom;
+    }
   }
 }
