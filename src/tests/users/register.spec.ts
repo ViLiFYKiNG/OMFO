@@ -67,5 +67,17 @@ describe('POST /auth/register', () => {
       expect(users[0].email).toBe('vilify.king@gmail.com');
       expect(users[0].password).toBe('Abrajput@123');
     });
+
+    it('Should return id of created User', async () => {
+      const userData = {
+        firstName: 'Anshu',
+        lastName: 'Babu',
+        email: 'vilify.king@gmail.com',
+        password: 'Abrajput@123',
+      };
+
+      const response = await request(app).post('/auth/register').send(userData);
+      expect(response.body).toHaveProperty('id');
+    });
   });
 });

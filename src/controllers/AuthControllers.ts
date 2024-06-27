@@ -11,8 +11,11 @@ export class AuthController {
     logger.info('Registering user:', req.body);
     const { firstName, lastName, email, password } = req.body;
 
-    this.userService.create({ firstName, lastName, email, password });
-
-    res.status(201).json();
+    this.userService
+      .create({ firstName, lastName, email, password })
+      .then((user) => {
+        logger.info('User created:', user);
+        res.status(201).json(user);
+      });
   }
 }
