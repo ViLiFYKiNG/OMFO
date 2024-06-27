@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { User } from '../entity/User';
 import { UserData } from '../types';
-import createHttpError from 'http-errors';
+import createHttpError, { HttpError } from 'http-errors';
 import { Logger } from 'winston';
 import { ROLES } from '../constants';
 import bcrypt from 'bcrypt';
@@ -16,7 +16,13 @@ export class UserService {
     lastName,
     email,
     password,
-  }: UserData): Promise<UserData> {
+  }: UserData): Promise<UserData | HttpError<number>> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (user) {
+      const error = createHttpError(400, 'Email already exists');
+      throw error;
+    }
+
     const saltOrRounds = 10;
     const hashPassword = await bcrypt.hash(password, saltOrRounds);
 

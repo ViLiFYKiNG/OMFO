@@ -116,5 +116,23 @@ describe('POST /auth/register', () => {
       expect(users[0].password).toHaveLength(60);
       expect(users[0].password).not.toBe('Abrajput@123');
     });
+
+    it('Should return 400 status code if email is already exits', async () => {
+      const userData = {
+        firstName: 'Anshu',
+        lastName: 'Babu',
+        email: 'vilify.king@gmail.com',
+        password: 'Abrajput@123',
+      };
+
+      const userRepository = connection.getRepository(User);
+      await userRepository.save({ ...userData, role: ROLES.CUSTOMER });
+
+      const response = await request(app).post('/auth/register').send(userData);
+      const users = await userRepository.find();
+
+      expect(users).toHaveLength(1);
+      expect(response.status).toBe(400);
+    });
   });
 });
