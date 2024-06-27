@@ -5,6 +5,7 @@ import { AppDataSource } from '../../config/data-source';
 import { User } from '../../entity/User';
 import logger from '../../config/logger';
 import { ROLES } from '../../constants';
+import { log } from 'console';
 describe('POST /auth/register', () => {
   let connection: DataSource;
 
@@ -133,6 +134,25 @@ describe('POST /auth/register', () => {
 
       expect(users).toHaveLength(1);
       expect(response.status).toBe(400);
+    });
+  });
+
+  describe('Given Missing Fields', () => {
+    it('should return 400 status code if email field is missing', async () => {
+      const userData = {
+        firstName: 'Anshu',
+        lastName: 'Babu',
+        email: '',
+        password: 'Abrajput@123',
+      };
+
+      const response = await request(app).post('/auth/register').send(userData);
+      const userRepository = connection.getRepository(User);
+      const users = await userRepository.find();
+
+      log(response.body);
+      expect(response.status).toBe(400);
+      expect(users).toHaveLength(0);
     });
   });
 });
