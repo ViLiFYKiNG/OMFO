@@ -4,6 +4,7 @@ import { UserData } from '../types';
 import createHttpError from 'http-errors';
 import { Logger } from 'winston';
 import { ROLES } from '../constants';
+import bcrypt from 'bcrypt';
 
 export class UserService {
   constructor(
@@ -16,12 +17,15 @@ export class UserService {
     email,
     password,
   }: UserData): Promise<UserData> {
+    const saltOrRounds = 10;
+    const hashPassword = await bcrypt.hash(password, saltOrRounds);
+
     try {
       const user: UserData = await this.userRepository.save({
         firstName,
         lastName,
         email,
-        password,
+        password: hashPassword,
         role: ROLES.CUSTOMER,
       });
 

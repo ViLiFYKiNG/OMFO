@@ -67,7 +67,6 @@ describe('POST /auth/register', () => {
       expect(users[0].firstName).toBe('Anshu');
       expect(users[0].lastName).toBe('Babu');
       expect(users[0].email).toBe('vilify.king@gmail.com');
-      expect(users[0].password).toBe('Abrajput@123');
     });
 
     it('Should return id of created User', async () => {
@@ -98,6 +97,24 @@ describe('POST /auth/register', () => {
 
       expect(users[0]).toHaveProperty('role');
       expect(users[0].role).toBe(ROLES.CUSTOMER);
+    });
+
+    it('Should store hash password in dataBase', async () => {
+      const userData = {
+        firstName: 'Anshu',
+        lastName: 'Babu',
+        email: 'vilify.king@gmail.com',
+        password: 'Abrajput@123',
+      };
+
+      await request(app).post('/auth/register').send(userData);
+
+      const userRepository = connection.getRepository(User);
+      const users = await userRepository.find();
+
+      expect(users[0].password).not.toBe('Abrajput@123');
+      expect(users[0].password).toHaveLength(60);
+      expect(users[0].password).not.toBe('Abrajput@123');
     });
   });
 });
