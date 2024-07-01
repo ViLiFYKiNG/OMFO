@@ -5,7 +5,7 @@ import { AppDataSource } from '../../config/data-source';
 import { User } from '../../entity/User';
 import logger from '../../config/logger';
 import { ROLES } from '../../constants';
-import { log } from 'console';
+import { isJWT } from '../utils';
 describe('POST /auth/register', () => {
   let connection: DataSource;
 
@@ -150,9 +150,47 @@ describe('POST /auth/register', () => {
       const userRepository = connection.getRepository(User);
       const users = await userRepository.find();
 
-      log(response.body);
       expect(response.status).toBe(400);
       expect(users).toHaveLength(0);
+    });
+
+    it.todo('should return 400 status code if firstName field is missing');
+    it.todo('should return 400 status code if lastName field is missing');
+    it.todo('should return 400 status code if password field is missing');
+
+    it('should return the access and refresh token inside a cookie', async () => {
+      const userData = {
+        firstName: 'Anshu',
+        lastName: 'Babu',
+        email: 'vilify.king@gmail.com',
+        password: 'Abrajput@123',
+      };
+
+      const response = await request(app).post('/auth/register').send(userData);
+
+      let accessToken = null;
+      let refreshToken = null;
+      interface Headers {
+        ['set-cookie']: string[];
+      }
+
+      const cookies =
+        (response.headers as unknown as Headers)['set-cookie'] || [];
+
+      cookies.forEach((cookie) => {
+        if (cookie.startsWith('accessToken=')) {
+          accessToken = cookie.split(';')[0].split('=')[1];
+        }
+        if (cookie.startsWith('refreshToken=')) {
+          refreshToken = cookie.split(';')[0].split('=')[1];
+        }
+      });
+
+      expect(accessToken).not.toBeNull();
+      expect(refreshToken).not.toBeNull();
+
+      expect(isJWT(accessToken)).toBeTruthy();
+      expect(isJWT(refreshToken)).toBeTruthy();
     });
   });
 
@@ -173,5 +211,11 @@ describe('POST /auth/register', () => {
       expect(users).toHaveLength(1);
       expect(users[0].email).toBe('vilify.king@gmail.com');
     });
+
+    // DO WITH THE HELP EXPERESS VALIDATOR
+    it.todo('should return 400 status code if email is not in proper format');
+    it.todo(
+      'should return 400 status code if password is less than 8 characters',
+    );
   });
 });
