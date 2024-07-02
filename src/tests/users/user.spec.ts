@@ -39,7 +39,6 @@ describe('GET /auth/self', () => {
     });
 
     it('should return the user data', async () => {
-      // Register user
       const userData = {
         firstName: 'Anshu',
         lastName: 'Babu',
@@ -51,19 +50,45 @@ describe('GET /auth/self', () => {
         ...userData,
         role: ROLES.CUSTOMER,
       });
-      // Generate token
+
       const accessToken = jwks.token({
         sub: String(data.id),
         role: data.role,
       });
 
-      // Add token to cookie
       const response = await request(app)
         .get('/auth/self')
         .set('Cookie', [`accessToken=${accessToken};`])
         .send();
 
       expect((response.body as Record<string, string>).id).toBe(data.id);
+    });
+
+    it('should not return the password field', async () => {
+      const userData = {
+        firstName: 'Anshu',
+        lastName: 'Babu',
+        email: 'anshu@gmail.com',
+        password: 'Abrajput@123',
+      };
+      const userRepository = connection.getRepository(User);
+      const data = await userRepository.save({
+        ...userData,
+        role: ROLES.CUSTOMER,
+      });
+      const accessToken = jwks.token({
+        sub: String(data.id),
+        role: data.role,
+      });
+
+      const response = await request(app)
+        .get('/auth/self')
+        .set('Cookie', [`accessToken=${accessToken};`])
+        .send();
+
+      expect(response.body as Record<string, string>).not.toHaveProperty(
+        'password',
+      );
     });
   });
 });
