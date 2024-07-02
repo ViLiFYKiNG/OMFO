@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { RegisterUserRequest } from '../types';
+import { AuthRequest, RegisterUserRequest } from '../types';
 import { JwtPayload } from 'jsonwebtoken';
 
 import { UserService } from '../services/UserService';
@@ -152,5 +152,11 @@ export class AuthController {
       next(err);
       return;
     }
+  }
+
+  async self(req: AuthRequest, res: Response) {
+    const user = await this.userService.findById(Number(req.auth.sub));
+
+    res.send(user);
   }
 }
