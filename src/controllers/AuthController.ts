@@ -43,7 +43,7 @@ export class AuthController {
       this.logger.info('User has been registered:', user);
 
       const payLoad: JwtPayload = {
-        sub: user.id || 1,
+        sub: user.id.toString() || '1',
         role: user.role || ROLES.CUSTOMER,
       };
 
@@ -96,7 +96,7 @@ export class AuthController {
     });
 
     try {
-      const user = await this.userService.findByEmail(email);
+      const user = await this.userService.findByEmailWithPassword(email);
 
       if (!user) {
         const error = createHttpError(400, 'Email or password does not match.');
