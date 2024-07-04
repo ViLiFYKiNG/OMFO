@@ -4,7 +4,6 @@ import { User } from '../entity/User';
 import { LimitedUserData, UserData } from '../types';
 import createHttpError from 'http-errors';
 import { Logger } from 'winston';
-import { ROLES } from '../constants';
 
 export class UserService {
   constructor(
@@ -17,8 +16,8 @@ export class UserService {
     lastName,
     email,
     password,
-    role = ROLES.CUSTOMER,
-    tenantId = undefined,
+    role,
+    tenantId,
   }: UserData) {
     const user = await this.userRepository.findOne({
       where: { email: email },

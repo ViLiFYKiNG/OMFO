@@ -39,6 +39,7 @@ export class AuthController {
         lastName,
         email,
         password,
+        role: ROLES.CUSTOMER,
       });
       this.logger.info('User has been registered:', user);
 
