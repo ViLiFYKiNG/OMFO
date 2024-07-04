@@ -9,7 +9,7 @@ import { ROLES } from '../constants';
 import { TokenService } from '../services/TokenService';
 import { User } from '../entity/User';
 import createHttpError from 'http-errors';
-import { CredentialService } from './CredentialService';
+import { CredentialService } from '../services/CredentialService';
 
 export class AuthController {
   constructor(
