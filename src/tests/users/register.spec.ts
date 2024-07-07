@@ -169,8 +169,8 @@ describe('POST /auth/register', () => {
 
       const response = await request(app).post('/auth/register').send(userData);
 
-      let accessToken = null;
-      let refreshToken = null;
+      let accessToken: string | null = null;
+      let refreshToken: string | null = null;
       interface Headers {
         ['set-cookie']: string[];
       }
