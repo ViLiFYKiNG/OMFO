@@ -60,4 +60,10 @@ export class TokenService {
   async deleteRefreshToken(tokenId: number) {
     await this.refreshTokenRepository.delete(tokenId);
   }
+
+  async getAllTokens(userId: number) {
+    return await this.refreshTokenRepository.find({
+      where: { user: { id: userId } },
+    });
+  }
 }

@@ -124,6 +124,11 @@ export class AuthController {
         email: user.email,
       };
 
+      const tokens = await this.tokenService.getAllTokens(user.id);
+      tokens.forEach(async (token) => {
+        await this.tokenService.deleteRefreshToken(token.id);
+      });
+
       const accessToken = this.tokenService.generateAccessToken(payload);
 
       const newRefreshToken = await this.tokenService.persistRefreshToken(user);
