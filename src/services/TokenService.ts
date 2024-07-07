@@ -12,7 +12,7 @@ export class TokenService {
       throw createHttpError(500, 'SECRET_KEY is not set..!');
     }
 
-    const privateKey = Config.PRIVATE_KEY || 'PRIVATE_KEY';
+    const privateKey = Config.PRIVATE_KEY ?? 'PRIVATE_KEY';
 
     const accessToken = sign(payLoad, privateKey, {
       algorithm: 'RS256',
@@ -24,7 +24,7 @@ export class TokenService {
   }
 
   generateRefreshToken(payLoad: JwtPayload) {
-    const secret = Config.REFRESH_TOKEN_SECRET || 'secret';
+    const secret = Config.REFRESH_TOKEN_SECRET ?? 'HOLA_SECRET';
     const refreshToken = sign(payLoad, secret, {
       algorithm: 'HS256',
       expiresIn: '1y',

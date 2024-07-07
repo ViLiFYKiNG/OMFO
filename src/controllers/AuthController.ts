@@ -44,8 +44,8 @@ export class AuthController {
       this.logger.info('User has been registered:', user);
 
       const payLoad: JwtPayload = {
-        sub: user.id.toString() || '1',
-        role: user.role || ROLES.CUSTOMER,
+        sub: user.id.toString() ?? '1',
+        role: user.role ?? ROLES.CUSTOMER,
       };
 
       const accessToken = this.tokenService.generateAccessToken(payLoad);

@@ -176,7 +176,7 @@ describe('POST /auth/register', () => {
       }
 
       const cookies =
-        (response.headers as unknown as Headers)['set-cookie'] || [];
+        (response.headers as unknown as Headers)['set-cookie'] ?? [];
 
       cookies.forEach((cookie) => {
         if (cookie.startsWith('accessToken=')) {
