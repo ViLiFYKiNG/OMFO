@@ -22,7 +22,8 @@ export const isJWT = (token: string | null): boolean => {
     parts.forEach((part) => {
       Buffer.from(part, 'base64').toString('utf-8');
     });
-  } catch (e) {
+  } catch (error) {
+    console.log(`Error {}`, error);
     return false;
   }
 

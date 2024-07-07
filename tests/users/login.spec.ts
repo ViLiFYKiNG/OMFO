@@ -54,7 +54,7 @@ describe('POST /auth/login', () => {
       let accessToken: string | null = null;
       let refreshToken: string | null = null;
       const cookies =
-        (response.headers as unknown as Headers)['set-cookie'] || [];
+        (response.headers as unknown as Headers)['set-cookie'] ?? [];
       cookies.forEach((cookie) => {
         if (cookie.startsWith('accessToken=')) {
           accessToken = cookie.split(';')[0].split('=')[1];
