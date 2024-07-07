@@ -10,6 +10,10 @@ lerna-debug.log*
 #certs
 certs
 
+#notes
+notes
+notes/index.txt
+
 #static folder
 public
 

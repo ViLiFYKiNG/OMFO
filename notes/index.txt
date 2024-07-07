@@ -6,3 +6,8 @@ docker run --rm --name omfomomoauthpg-container -e POSTGRES_USER=root -e POSTGRE
 // AUTH-SERVICE-DOCKER
 docker build -t auth-service:dev -f docker/development/Dockerfile .
 docker run --rm -it -v $(pwd):/usr/src/app -v /usr/src/app/node_modules --env-file $(pwd)/.env -p 5501:5501 -e NODE_ENV=development auth-prep:dev
+
+
+//FOR SUPAABSE 
+PASS :- bUXG#z6ti!5x4#y
+PROJECT_NAME :- omfo_momo_auth_service
