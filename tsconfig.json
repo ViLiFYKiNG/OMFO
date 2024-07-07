@@ -4,8 +4,8 @@
     "target": "es2016",
     "lib": ["es6"],
     "module": "commonjs",
-    "rootDir": "./src",
-    "outDir": "./dist/src",
+    "rootDir": "./",
+    "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
@@ -13,5 +13,5 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false
   },
-  "exclude": ["**/*.spec.ts", "src/tests"]
+  "exclude": ["**/*.spec.ts", "tests"]
 }

@@ -1,12 +1,12 @@
 import request from 'supertest';
-import app from '../../app';
+import app from '../../src/app';
 import { DataSource } from 'typeorm';
-import { AppDataSource } from '../../config/data-source';
-import { User } from '../../entity/User';
-import logger from '../../config/logger';
-import { ROLES } from '../../constants';
+import { AppDataSource } from '../../src/config/data-source';
+import { User } from '../../src/entity/User';
+import logger from '../../src/config/logger';
+import { ROLES } from '../../src/constants';
 import { isJWT } from '../utils';
-import { RefreshToken } from '../../entity/RefreshToken';
+import { RefreshToken } from '../../src/entity/RefreshToken';
 describe('POST /auth/register', () => {
   let connection: DataSource;
 

@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm';
-import { AppDataSource } from '../../config/data-source';
-import { ROLES } from '../../constants';
-import { User } from '../../entity/User';
-import request from 'supertest';
-import app from '../../app';
 import { isJWT } from '../utils';
 import bcrypt from 'bcrypt';
+import request from 'supertest';
+import { AppDataSource } from '../../src/config/data-source';
+import { ROLES } from '../../src/constants';
+import { User } from '../../src/entity/User';
+import app from '../../src/app';
 
 describe('POST /auth/login', () => {
   let connection: DataSource;
