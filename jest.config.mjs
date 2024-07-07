@@ -7,6 +7,7 @@ export default {
   coverageProvider: 'v8',
   collectCoverageFrom: [
     'src/**/*.ts',
+    '!**/types/**',
     '!**/tests/**',
     '!**/migration/**',
     '!**/node_modules/**',

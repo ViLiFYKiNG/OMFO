@@ -7,6 +7,9 @@ import authRouter from './routes/auth';
 import tenantRouter from './routes/tenant';
 import userRouter from './routes/user';
 import cookieParser from 'cookie-parser';
+import updateUserValidator from './validators/update-user-validator';
+import { UpdateUserRequest } from './types';
+import { validationResult } from 'express-validator';
 
 const app = express();
 app.use(express.static('public'));
@@ -20,6 +23,19 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/auth', authRouter);
 app.use('/tenants', tenantRouter);
 app.use('/users', userRouter);
+
+// FOR DUMMY TEST CASES
+app.post(
+  '/update-user',
+  updateUserValidator,
+  (req: UpdateUserRequest, res: Response) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      return res.status(400).json({ errors: result.array() });
+    }
+    res.status(200).json({ message: 'User updated successfully' });
+  },
+);
 
 app.use((err: HttpError, req: Request, res: Response) => {
   logger.error(err.message);
