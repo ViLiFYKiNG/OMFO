@@ -1,3 +1,4 @@
+// HELLO ANSHU
 // FOR MIGRATION GENERATION
 npm run migration:generate -- src/migration/[MIGRATION_NAME] -d <path/to/datasource>
 
